@@ -43,8 +43,8 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-return () => {
-  axiosInstance.interceptors.request.eject();
-  axiosInstance.interceptors.response.eject();
-};
+// return () => {
+//   axiosInstance.interceptors.request.eject();
+//   axiosInstance.interceptors.response.eject();
+// };
 export default axiosInstance;

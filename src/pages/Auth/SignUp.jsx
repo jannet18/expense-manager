@@ -5,9 +5,10 @@ import { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { validateEmail } from "../../utils/helper";
 import axiosInstance from "../../utils/axiosInstance";
-import { API_URLS } from "../../utils/apiPaths";
+// import { API_URLS } from "../../utils/apiPaths";
 import { UserContext } from "../../contexts/UserContext";
-import uploadImage from "../../utils/uploadImage";
+import { API_URLS } from "../../utils/apiPaths";
+// import uploadImage from "../../utils/uploadImage";
 function SignUp() {
   const [profilePic, setProfilePic] = useState(null);
   const [fullName, setFullName] = useState("");
