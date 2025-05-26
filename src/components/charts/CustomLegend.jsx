@@ -1,6 +1,6 @@
 import React from "react";
 
-const CutomeLegend = ({ payload }) => {
+const CustomLegend = ({ payload }) => {
   return (
     <div className="flex flex-wrap justify-center gap-2 mt-4 space-x-6">
       {payload.map((entry, index) => (
@@ -16,4 +16,4 @@ const CutomeLegend = ({ payload }) => {
   );
 };
 
-export default CutomeLegend;
+export default CustomLegend;

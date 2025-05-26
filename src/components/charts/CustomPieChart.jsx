@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from "recharts";
 import CustomTooltip from "./CustomTooltip";
-import CustomLegend from "./CutomLegend";
+import CustomLegend from "./CustomLegend";
 
 const CutomPieChart = ({
   data,

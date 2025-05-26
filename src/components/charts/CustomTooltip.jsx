@@ -16,7 +16,7 @@ const CustomTooltip = ({ active, payload }) => {
       </div>
     );
   }
-  return <div>CustomTooltip</div>;
+  return null;
 };
 
 export default CustomTooltip;
