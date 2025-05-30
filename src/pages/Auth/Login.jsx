@@ -28,17 +28,25 @@ function Login() {
     setError("");
     // login API CALL
     try {
-      const response = await axiosInstance.post(API_URLS.AUTH.LOGIN, {
-        email,
-        password,
-      });
-      console.log("Login success:", response.data);
-      const { token, user } = response.data;
-      if (token) {
-        localStorage.setItem("token", token);
-        updateUser(user);
+      const response = await axiosInstance.post(
+        API_URLS.AUTH.LOGIN,
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+      if (response.data.user) {
+        updateUser(response.data.user);
         navigate("/dashboard");
       }
+      // // console.log("Login success:", response.data);
+      // const { token, user } = response?.data;
+      // if (token) {
+      //   localStorage?.setItem("token", token);
+      //   updateUser(user);
+      //   navigate("/dashboard");
+      // }
     } catch (error) {
       console.log("login error", error);
       if (error.response && error.response.data.message) {
@@ -76,7 +84,7 @@ function Login() {
             LOGIN
           </button>
           <p className="text-[13px] text-slate-800 mt-3">
-            Don't have an account ?{" "}
+            Don't have an account?
             <Link className="font-medium text-primary underline" to="/signup">
               SignUp
             </Link>

@@ -3,11 +3,12 @@ import { BASE_URL } from "./apiPaths";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
+  withCredentials: true,
+  // timeout: 10000,
+  // headers: {
+  //   "Content-Type": "application/json",
+  //   Accept: "application/json",
+  // },
 });
 
 // Request Interceptor
@@ -34,7 +35,8 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       if (error.response.status === 401) {
         // redirect to login user
-        window.location.href = "/login";
+        // window.location.href = "/login";
+        console.log(error.message);
       } else if (error.response.status === 500) {
         console.error("Server Error. Please try again.");
       }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import CustomPieChart from "../charts/CustomPieChart";
 const COLORS = ["#875cf5", "#fa2c37", "#ff6900", "#4f39f6"];
 
 const RecentIncomeWithChart = ({ data, totalIncome }) => {

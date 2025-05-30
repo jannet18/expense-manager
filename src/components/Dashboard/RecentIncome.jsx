@@ -14,7 +14,7 @@ const RecentIncome = ({ transactions, onSeeMore }) => {
         </button>
       </div>
       <div className="mt-6">
-        {transactions?.slice(0, 5)?.map((item) => (
+        {transactions?.slice(0, 5)?.map((item, _) => (
           <TransactionInfoCard
             key={item._id}
             title={item.source}

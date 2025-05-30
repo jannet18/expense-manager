@@ -1,13 +1,21 @@
 import React from "react";
-import { Cell, ResponsiveContainer } from "recharts";
-import CustomTooltip from "./CustomTooltip";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
-const CustomBarChart = () => {
+const CustomBarChart = ({ data }) => {
   const getBarColor = (index) => {
     return index % 2 === 0 ? "#875cf5" : "#cfbefb";
   };
 
-  const CustomeTooltip = ({ active, payload }) => {
+  const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white shadow-md rounded-lg p-2 border-gray-300">
@@ -27,23 +35,23 @@ const CustomBarChart = () => {
   };
   return (
     <ResponsiveContainer>
-      <BarChart data={data} />
-
-      <CartesianGrid stroke="none" />
-      <XAxis dataKey="month" tick={{ fontsize: 12, fill: "#555" }} />
-      <YAxis tick={{ fontsize: 12, fill: "#555" }} stroke="none" />
-      <Tooltip content={CustomTooltip} />
-      <Bar
-        dataKey="amount"
-        fill="#FF8042"
-        radius={[10, 10, 0, 0]}
-        activeDot={{ r: 8, fill: "yellow" }}
-        activeStyle={{ fill: "green" }}
-      >
-        {data.map((entry, index) => (
-          <Cell key={index} fill={getBarColor(index)} />
-        ))}
-      </Bar>
+      <BarChart data={data}>
+        <CartesianGrid stroke="none" />
+        <XAxis dataKey="month" tick={{ fontsize: 12, fill: "#555" }} />
+        <YAxis tick={{ fontsize: 12, fill: "#555" }} stroke="none" />
+        <Tooltip content={<CustomTooltip />} />
+        <Bar
+          dataKey="amount"
+          fill="#FF8042"
+          radius={[10, 10, 0, 0]}
+          activeDot={{ r: 8, fill: "yellow" }}
+          activeStyle={{ fill: "green" }}
+        >
+          {data.map((_, index) => (
+            <Cell key={index} fill={getBarColor(index)} />
+          ))}
+        </Bar>
+      </BarChart>
     </ResponsiveContainer>
   );
 };

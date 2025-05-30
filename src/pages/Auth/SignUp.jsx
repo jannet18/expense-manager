@@ -2,13 +2,13 @@ import AuthLayout from "../../components/layouts/AuthLayout";
 import Input from "../../components/inputs/Input";
 import ProfilePhotoSelector from "../../components/inputs/ProfilePhotoSelector";
 import { useContext, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { validateEmail } from "../../utils/helper";
 import axiosInstance from "../../utils/axiosInstance";
-// import { API_URLS } from "../../utils/apiPaths";
 import { UserContext } from "../../contexts/UserContext";
 import { API_URLS } from "../../utils/apiPaths";
-// import uploadImage from "../../utils/uploadImage";
+import uploadImage from "../../utils/uploadImage";
+
 function SignUp() {
   const [profilePic, setProfilePic] = useState(null);
   const [fullName, setFullName] = useState("");
@@ -16,11 +16,14 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
+
   const { updateUser } = useContext(UserContext);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    let profilePic = "";
+
+    let profileImageUrl = "";
 
     if (!fullName) {
       setError("Please enter your full name.");
@@ -42,19 +45,21 @@ function SignUp() {
     try {
       if (profilePic) {
         const imageUploadRes = await uploadImage(profilePic);
-        profileImageUrl = imageUploadRes.imageUrl || "";
+        profileImageUrl = imageUploadRes?.imageUrl || "";
       }
-      const response = await axiosInstance.post(API_URLS.AUTH.REGISTER, {
-        fullName,
-        email,
-        password,
-      });
-
-      const { token, user } = response.data;
-      if (token) {
-        localStorage.setItem("token", token);
-        updateUser(user);
-        Navigate("/dashboard");
+      const response = await axiosInstance.post(
+        API_URLS.AUTH.REGISTER,
+        {
+          fullName,
+          email,
+          password,
+          profileImageUrl,
+        },
+        { withCredentials: true }
+      );
+      if (response.data.user) {
+        updateUser(response.data.user);
+        navigate("/dashboard");
       }
     } catch (error) {
       if (error.response && error.response.data.message) {
